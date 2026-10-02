@@ -3,6 +3,9 @@ import { ref } from 'vue';
 import Master from '@/Layouts/Master.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import InputError from '@/Components/InputError.vue';
+import TextInput from '@/Components/TextInput.vue';
+import SelectInput from '@/Components/SelectInput.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const props = defineProps({
     setting: {
@@ -83,11 +86,11 @@ const submit = () => {
                             <h2 class="text-2xl font-bold text-slate-800 mb-1">Settings</h2>
                             <p class="text-slate-500 text-sm">Manage your business configuration and appearance</p>
                         </div>
-                        <button type="submit" :disabled="form.processing" class="mt-4 md:mt-0 px-6 py-3 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white rounded-full font-bold shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5 transition-all disabled:opacity-50 flex items-center">
+                        <PrimaryButton type="submit" :disabled="form.processing" class="mt-4 md:mt-0 !rounded-full !px-6 !py-3 bg-gradient-to-r from-indigo-500 to-indigo-700 !border-0 shadow-lg shadow-indigo-500/30 hover:shadow-indigo-500/50 hover:-translate-y-0.5">
                             <svg v-if="form.processing" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                             <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
                             Save All Settings
-                        </button>
+                        </PrimaryButton>
                     </div>
 
                     <div class="flex flex-col lg:flex-row gap-8">
@@ -122,27 +125,27 @@ const submit = () => {
                         <div class="w-full lg:w-3/4">
                             
                             <!-- General Info Section -->
-                            <div v-show="currentTab === 'general'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
-                                <h4 class="text-xl font-bold text-slate-800 mb-6">Business Information</h4>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div v-show="currentTab === 'general'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6">
+                                <h4 class="text-lg font-bold text-slate-800 mb-4">Business Information</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Business Name</label>
-                                        <input type="text" v-model="form.site_name" required class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="text" v-model="form.site_name" required />
                                         <InputError :message="form.errors.site_name" class="mt-2" />
                                         <p class="mt-1 text-xs text-slate-500">Displayed on receipts and browser title</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Site Slogan / Title</label>
-                                        <input type="text" v-model="form.site_title" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="text" v-model="form.site_title" />
                                         <p class="mt-1 text-xs text-slate-500">Catchy phrase for your business</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Contact Phone</label>
-                                        <input type="text" v-model="form.phone" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="text" v-model="form.phone" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Email Address</label>
-                                        <input type="email" v-model="form.email" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="email" v-model="form.email" />
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Full Address</label>
@@ -152,9 +155,9 @@ const submit = () => {
                             </div>
 
                             <!-- Branding Section -->
-                            <div v-show="currentTab === 'branding'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
-                                <h4 class="text-xl font-bold text-slate-800 mb-6">Branding Assets</h4>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div v-show="currentTab === 'branding'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6">
+                                <h4 class="text-lg font-bold text-slate-800 mb-4">Branding Assets</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                                     <div class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-2xl p-6 text-center">
                                         <h6 class="font-bold text-slate-800 mb-4">Main Business Logo</h6>
                                         <div class="bg-white p-4 rounded-xl border border-slate-100 inline-block mb-4 shadow-sm min-h-[100px] min-w-[150px] flex items-center justify-center">
@@ -180,73 +183,73 @@ const submit = () => {
                             </div>
 
                             <!-- POS & Currency Section -->
-                            <div v-show="currentTab === 'pos'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
-                                <h4 class="text-xl font-bold text-slate-800 mb-6">POS & Currency</h4>
-                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                            <div v-show="currentTab === 'pos'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6">
+                                <h4 class="text-lg font-bold text-slate-800 mb-4">POS & Currency</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Currency Symbol</label>
-                                        <input type="text" v-model="form.currency_symbol" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="text" v-model="form.currency_symbol" />
                                         <InputError :message="form.errors.currency_symbol" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Currency Name</label>
-                                        <input type="text" v-model="form.currency_name" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="text" v-model="form.currency_name" />
                                         <InputError :message="form.errors.currency_name" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">ISO Code</label>
-                                        <input type="text" v-model="form.currency_code" required placeholder="e.g. BDT" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <TextInput type="text" v-model="form.currency_code" required placeholder="e.g. BDT" />
                                         <InputError :message="form.errors.currency_code" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Position</label>
-                                        <select v-model="form.currency_position" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <SelectInput v-model="form.currency_position">
                                             <option value="prefix">Prefix ($ 100)</option>
                                             <option value="suffix">Suffix (100 $)</option>
-                                        </select>
+                                        </SelectInput>
                                     </div>
                                 </div>
                                 
-                                <div class="mb-8">
-                                    <label class="block text-sm font-bold text-slate-700 mb-2">Invoice Header Style</label>
-                                    <select v-model="form.invoice_view_type" class="w-full md:w-1/2 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                <div class="mb-5">
+                                    <label class="block text-sm font-bold text-slate-700 mb-1">Invoice Header Style</label>
+                                    <SelectInput v-model="form.invoice_view_type">
                                         <option value="both">Logo & Text</option>
                                         <option value="logo_only">Logo Only</option>
                                         <option value="text_only">Text Only</option>
-                                    </select>
+                                    </SelectInput>
                                 </div>
 
-                                <h5 class="text-lg font-bold text-slate-800 border-t border-slate-100 pt-6 mb-6">Receipt Templates</h5>
-                                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                <h5 class="text-base font-bold text-slate-800 border-t border-slate-100 pt-5 mb-4">Receipt Templates</h5>
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">POS Sales Receipt</label>
-                                        <select v-model="form.pos_receipt_type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <SelectInput v-model="form.pos_receipt_type">
                                             <option value="pos">Thermal (80mm)</option>
                                             <option value="a4">Standard (A4)</option>
                                             <option value="a5">Standard (A5)</option>
-                                        </select>
+                                        </SelectInput>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Purchase Orders</label>
-                                        <select v-model="form.purchase_receipt_type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <SelectInput v-model="form.purchase_receipt_type">
                                             <option value="pos">Thermal (80mm)</option>
                                             <option value="a5">A5 Format</option>
-                                        </select>
+                                        </SelectInput>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 mb-2">Payment Vouchers</label>
-                                        <select v-model="form.payment_receipt_type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:bg-white focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                        <SelectInput v-model="form.payment_receipt_type">
                                             <option value="pos">Thermal (80mm)</option>
                                             <option value="a4">Standard (A4)</option>
-                                        </select>
+                                        </SelectInput>
                                     </div>
                                 </div>
                             </div>
 
                             <!-- Advanced Controls Section -->
-                            <div v-show="currentTab === 'advanced'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
-                                <h4 class="text-xl font-bold text-slate-800 mb-6">Advanced Controls</h4>
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div v-show="currentTab === 'advanced'" class="bg-white rounded-2xl shadow-sm border border-slate-100 p-5 md:p-6">
+                                <h4 class="text-lg font-bold text-slate-800 mb-4">Advanced Controls</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div class="bg-slate-50 p-5 rounded-2xl">
                                         <label class="block text-sm font-bold text-slate-700 mb-3">Low Stock Warning Threshold</label>
                                         <div class="flex">
