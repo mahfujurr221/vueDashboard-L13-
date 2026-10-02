@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Setting;
+use App\Traits\UploadsImage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class SettingController extends Controller
 {
+    use UploadsImage;
+
     public function index()
     {
         $setting = Setting::first();
@@ -49,18 +52,12 @@ class SettingController extends Controller
 
         //favicon
         if ($request->hasFile('favicon')) {
-            if ($setting->favicon && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->favicon)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($setting->favicon);
-            }
-            $setting->favicon = $request->file('favicon')->store('uploads/settings', 'public');
+            $setting->favicon = $this->uploadImage($request->file('favicon'), 'uploads/settings', $setting->favicon);
         }
 
         //logo
         if ($request->hasFile('logo')) {
-            if ($setting->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->logo)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($setting->logo);
-            }
-            $setting->logo = $request->file('logo')->store('uploads/settings', 'public');
+            $setting->logo = $this->uploadImage($request->file('logo'), 'uploads/settings', $setting->logo);
         }
 
         $setting->save();

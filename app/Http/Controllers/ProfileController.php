@@ -8,11 +8,14 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Traits\UploadsImage;
 use Inertia\Inertia;
 use Inertia\Response;
 
 class ProfileController extends Controller
 {
+    use UploadsImage;
+
     /**
      * Display the user's profile form.
      */
@@ -32,12 +35,11 @@ class ProfileController extends Controller
         $request->user()->fill($request->validated());
 
         if ($request->hasFile('image')) {
-            if ($request->user()->image && \Illuminate\Support\Facades\Storage::disk('public')->exists($request->user()->image)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($request->user()->image);
-            }
-            
-            $path = $request->file('image')->store('uploads/users', 'public');
-            $request->user()->image = $path;
+            $request->user()->image = $this->uploadImage(
+                $request->file('image'), 
+                'uploads/users', 
+                $request->user()->image
+            );
         }
 
         if ($request->user()->isDirty('email')) {
@@ -59,6 +61,8 @@ class ProfileController extends Controller
         ]);
 
         $user = $request->user();
+        
+        $this->deleteImage($user->image);
 
         Auth::logout();
 
