@@ -3,11 +3,13 @@ import { ref } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
+import Toast from '@/Components/Toast.vue';
 
 const showingNavigationDropdown = ref(false);
 </script>
 <template>
-    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 shrink-0 z-10 sticky top-0 shadow-sm">
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 shrink-0 z-10 sticky top-0 shadow-sm relative">
+        <Toast />
         <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
             <!-- Hamburger / Mobile menu toggle -->
             <div class="flex items-center md:hidden">

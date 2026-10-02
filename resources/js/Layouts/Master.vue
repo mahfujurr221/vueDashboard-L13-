@@ -22,7 +22,7 @@ import Footer from './Includes/Footer.vue';
             <!-- Scrollable Content Area -->
             <div class="flex-1 overflow-y-auto flex flex-col bg-slate-50">
                 <!-- Main Page Content -->
-                <main class="flex-1 p-4 sm:p-6 lg:p-8 w-full mx-auto animate-fade-in">
+                <main class="flex-1 p-4 sm:p-6 w-full mx-auto animate-fade-in">
                     <slot />
                 </main>
 
