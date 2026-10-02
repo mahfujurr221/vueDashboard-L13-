@@ -15,13 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'tiger',
-            'phone' => '1234567890',
-            'email' => 'tiger@gmail.com',
-            'password' => \Illuminate\Support\Facades\Hash::make('@#tiger#@'),
+        $this->call([
+            RolePermissionSeeder::class,
         ]);
+
+        $user = User::firstOrCreate(
+            ['email' => 'tiger@gmail.com'],
+            [
+                'name' => 'tiger',
+                'phone' => '1234567890',
+                'password' => \Illuminate\Support\Facades\Hash::make('@#tiger#@'),
+            ]
+        );
+
+        // Assign super-admin role
+        $user->assignRole('super-admin');
     }
 }

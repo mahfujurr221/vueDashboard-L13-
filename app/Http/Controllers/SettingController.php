@@ -6,6 +6,7 @@ use App\Models\Setting;
 use App\Traits\UploadsImage;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Gate;
 
 class SettingController extends Controller
 {
@@ -13,6 +14,8 @@ class SettingController extends Controller
 
     public function index()
     {
+        Gate::authorize('settings-view');
+
         $setting = Setting::first();
         if (!$setting) {
             $setting = Setting::create(['site_name' => 'My Application']);
@@ -25,6 +28,8 @@ class SettingController extends Controller
 
     public function update(Request $request)
     {
+        Gate::authorize('settings-update');
+
         $setting = Setting::first();
 
         $request->validate([
