@@ -14,6 +14,10 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    title: {
+        type: String,
+        default: null,
+    },
 });
 
 const emit = defineEmits(['close']);
@@ -97,7 +101,7 @@ const maxWidthClass = computed(() => {
                     @click="close"
                 >
                     <div
-                        class="absolute inset-0 bg-gray-500 opacity-75"
+                        class="absolute inset-0 bg-slate-900/40 dark:bg-slate-900/80 backdrop-blur-sm transition-opacity"
                     />
                 </div>
             </Transition>
@@ -112,10 +116,26 @@ const maxWidthClass = computed(() => {
             >
                 <div
                     v-show="show"
-                    class="mb-6 transform overflow-hidden rounded-lg bg-white shadow-xl transition-all sm:mx-auto sm:w-full"
+                    class="mb-6 mt-12 transform overflow-hidden rounded-2xl bg-white dark:bg-slate-900 shadow-2xl ring-1 ring-slate-900/5 dark:ring-white/10 transition-all sm:mx-auto sm:w-full border border-slate-100 dark:border-slate-800 flex flex-col max-h-[85vh]"
                     :class="maxWidthClass"
                 >
-                    <slot v-if="showSlot" />
+                    <!-- Header -->
+                    <div v-if="title" class="px-6 py-4 bg-white dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800 text-slate-800 dark:text-slate-100 flex justify-between items-center shrink-0">
+                        <h3 class="text-lg font-bold">{{ title }}</h3>
+                        <button v-if="closeable" @click="close" type="button" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 p-1.5 rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-slate-500/50">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </button>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="p-6 overflow-y-auto">
+                        <slot v-if="showSlot" />
+                    </div>
+
+                    <!-- Footer -->
+                    <div v-if="$slots.footer" class="px-6 py-4 bg-slate-50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end space-x-3 shrink-0">
+                        <slot name="footer" v-if="showSlot" />
+                    </div>
                 </div>
             </Transition>
         </div>

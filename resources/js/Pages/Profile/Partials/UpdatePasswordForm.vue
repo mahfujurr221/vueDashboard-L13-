@@ -89,7 +89,7 @@ const updatePassword = () => {
                 />
             </div>
 
-            <div class="flex items-center gap-3 pt-3 border-t border-slate-100 mt-2">
+            <div class="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 mt-2 transition-colors">
                 <PrimaryButton :disabled="form.processing" class="!py-1.5 !px-4 text-xs">Save Password</PrimaryButton>
 
                 <Transition

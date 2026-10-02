@@ -6,7 +6,7 @@ import Toast from '@/Components/Toast.vue';
 </script>
 
 <template>
-    <div class="flex h-screen overflow-hidden bg-slate-50 font-sans text-slate-900">
+    <div class="flex h-screen overflow-hidden bg-slate-50 dark:bg-slate-900 font-sans text-slate-900 dark:text-slate-100 transition-colors duration-200">
         <Toast />
         <!-- Sidebar -->
         <Sidebar />
@@ -15,16 +15,16 @@ import Toast from '@/Components/Toast.vue';
         <div class="flex-1 flex flex-col min-w-0 h-screen overflow-hidden relative">
             
             <!-- Top Navigation / Header -->
-            <Header>
-                <template #header v-if="$slots.header">
-                    <slot name="header" />
-                </template>
-            </Header>
+            <Header />
 
             <!-- Scrollable Content Area -->
-            <div class="flex-1 overflow-y-auto flex flex-col bg-slate-50">
+            <div class="flex-1 overflow-y-auto flex flex-col bg-slate-50 dark:bg-slate-900 transition-colors duration-200">
                 <!-- Main Page Content -->
                 <main class="flex-1 p-4 sm:p-6 w-full mx-auto animate-fade-in">
+                    <!-- Page Breadcrumb / Header -->
+                    <!-- <div v-if="$slots.header" class="mb-2">
+                        <slot name="header" />
+                    </div> -->
                     <slot />
                 </main>
 

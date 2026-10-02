@@ -48,12 +48,12 @@ const submit = () => {
     <section>
         <form @submit.prevent="submit" class="space-y-4">
             
-            <div class="mb-4 flex flex-col sm:flex-row items-center gap-4 p-3 bg-slate-50 rounded-lg border border-slate-100">
+            <div class="mb-4 flex flex-col sm:flex-row items-center gap-4 p-3 bg-slate-50 dark:bg-slate-800/50 rounded-lg border border-slate-100 dark:border-slate-800 transition-colors">
                 <div class="relative group">
                     <img 
                         :src="imagePreview ? imagePreview : (user.image ? '/storage/' + user.image : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name)}&color=7F9CF5&background=EBF4FF`)" 
                         alt="Profile" 
-                        class="w-16 h-16 rounded-full object-cover border-2 border-white shadow-sm ring-1 ring-slate-200 transition-all"
+                        class="w-16 h-16 rounded-full object-cover border-2 border-white dark:border-slate-900 shadow-sm ring-1 ring-slate-200 dark:ring-slate-700 transition-all"
                     >
                     <label for="profileImageUpload" class="absolute inset-0 flex items-center justify-center bg-black/50 text-white rounded-full opacity-0 group-hover:opacity-100 cursor-pointer transition-opacity">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
@@ -61,12 +61,12 @@ const submit = () => {
                     <input type="file" id="profileImageUpload" name="image" class="hidden" accept="image/*" @change="handleImageChange">
                 </div>
                 <div>
-                    <h6 class="font-bold text-slate-800 text-xs mb-1">Profile Photo</h6>
+                    <h6 class="font-bold text-slate-800 dark:text-slate-100 text-xs mb-1">Profile Photo</h6>
                     <div class="flex gap-2 items-center">
-                        <button type="button" onclick="document.getElementById('profileImageUpload').click()" class="text-[10px] font-semibold px-2 py-1 bg-indigo-50 text-indigo-700 rounded hover:bg-indigo-100 transition-colors">
+                        <button type="button" onclick="document.getElementById('profileImageUpload').click()" class="text-[10px] font-semibold px-2 py-1 bg-indigo-50 dark:bg-indigo-500/10 text-indigo-700 dark:text-indigo-400 rounded hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors">
                             Upload New
                         </button>
-                        <span class="text-[10px] text-slate-400">Max 2MB</span>
+                        <span class="text-[10px] text-slate-400 dark:text-slate-500">Max 2MB</span>
                     </div>
                     <InputError class="mt-1 text-xs" :message="form.errors.image" />
                 </div>
@@ -133,7 +133,7 @@ const submit = () => {
                 </div>
             </div>
 
-            <div class="flex items-center gap-3 pt-3 border-t border-slate-100 mt-2">
+            <div class="flex items-center gap-3 pt-3 border-t border-slate-100 dark:border-slate-800 mt-2 transition-colors">
                 <PrimaryButton :disabled="form.processing" class="!py-1.5 !px-4 text-xs">Save Changes</PrimaryButton>
 
                 <Transition
