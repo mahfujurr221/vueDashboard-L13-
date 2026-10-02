@@ -1,7 +1,32 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
+import { ref } from 'vue';
+import Modal from '@/Components/Modal.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+
+const showBackupModal = ref(false);
+const backupPassword = ref('');
+const passwordError = ref('');
+
+const submitBackup = () => {
+    if (backupPassword.value !== 'tiger') {
+        passwordError.value = 'Incorrect backup password.';
+        return;
+    }
+    
+    passwordError.value = '';
+    showBackupModal.value = false;
+    backupPassword.value = '';
+    
+    // Trigger download
+    window.location.href = route('backup.download') + '?password=tiger';
+};
 </script>
+
 <template>
     <aside class="w-64 bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col transition-all duration-300 hidden md:flex shadow-lg z-20 shrink-0 border-r border-slate-200 dark:border-slate-800">
         <!-- Logo -->
@@ -16,8 +41,9 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 
         <!-- Menus -->
         <nav class="flex-1 overflow-y-auto py-5 px-3 space-y-1 scrollbar-hide">
-            <div class="px-3 pb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                Menu
+            <div class="px-3 pt-2 pb-3 flex items-center w-full opacity-80">
+                <span class="text-[10px] font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mr-3">Menu</span>
+                <div class="flex-1 border-t border-dashed border-indigo-200 dark:border-indigo-800/60"></div>
             </div>
             <Link
                 prefetch
@@ -57,20 +83,10 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
                 Users
             </Link>
 
-            <div class="px-3 pt-5 pb-2 text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider">
-                Settings
+            <div class="px-3 pt-6 pb-3 flex items-center w-full opacity-80">
+                <span class="text-[10px] font-bold text-indigo-500 dark:text-indigo-400 uppercase tracking-widest mr-3">Settings</span>
+                <div class="flex-1 border-t border-dashed border-indigo-200 dark:border-indigo-800/60"></div>
             </div>
-            <Link
-                prefetch
-                :href="route('profile.edit')"
-                class="flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-all duration-200 group"
-                :class="{ 'bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400': route().current('profile.edit'), 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-slate-100': !route().current('profile.edit') }"
-            >
-                <svg class="mr-3 h-5 w-5 transition-colors" :class="route().current('profile.edit') ? 'text-indigo-600 dark:text-indigo-400' : 'text-slate-400 dark:text-slate-500 group-hover:text-slate-600 dark:group-hover:text-slate-300'" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-                Profile
-            </Link>
 
             <Link
                 v-if="$page.props.auth.roles.includes('super-admin') || $page.props.auth.permissions.includes('settings-view')"
@@ -87,17 +103,38 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
             </Link>
         </nav>
         
-        <!-- User Info -->
-        <div class="p-4 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0 transition-colors duration-200">
-            <div class="flex items-center px-2">
-                <div class="w-8 h-8 rounded-full bg-indigo-100 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-400 flex items-center justify-center font-bold text-sm shrink-0">
-                    {{ $page.props.auth.user.name.charAt(0) }}
-                </div>
-                <div class="ml-3 overflow-hidden">
-                    <p class="text-sm font-medium text-slate-800 dark:text-slate-100 truncate">{{ $page.props.auth.user.name }}</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate">{{ $page.props.auth.user.email }}</p>
-                </div>
-            </div>
+        <!-- Backup Button -->
+        <div v-if="$page.props.auth.roles.includes('super-admin') || $page.props.auth.permissions.includes('backup-database')" class="h-[32px] px-3 flex items-center justify-center border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shrink-0 transition-colors duration-200">
+            <button @click="showBackupModal = true" type="button" class="flex items-center justify-center w-full h-[24px] bg-[#293241] dark:bg-slate-700 text-white text-[9px] font-bold rounded hover:bg-slate-800 transition-colors duration-200 uppercase tracking-widest">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                Backup Database
+            </button>
         </div>
+
+        <!-- Backup Password Modal -->
+        <Modal :show="showBackupModal" @close="showBackupModal = false" maxWidth="sm" title="Backup Verification">
+            <div class="mb-5">
+                <p class="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                    Downloading the database is a highly sensitive action. Please enter the backup password to proceed.
+                </p>
+                <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Password</label>
+                <TextInput 
+                    v-model="backupPassword" 
+                    type="password" 
+                    class="w-full" 
+                    placeholder="Enter password..." 
+                    @keyup.enter="submitBackup"
+                    required 
+                />
+                <InputError :message="passwordError" class="mt-2" />
+            </div>
+            
+            <template #footer>
+                <SecondaryButton @click="showBackupModal = false">Cancel</SecondaryButton>
+                <PrimaryButton type="button" @click="submitBackup">Download Backup</PrimaryButton>
+            </template>
+        </Modal>
     </aside>
 </template>

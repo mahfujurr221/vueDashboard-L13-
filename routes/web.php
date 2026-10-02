@@ -20,6 +20,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/settings', [App\Http\Controllers\SettingController::class, 'index'])->name('settings.index');
     Route::post('/settings', [App\Http\Controllers\SettingController::class, 'update'])->name('settings.update');
 
+    // Backup
+    Route::get('/backup', [App\Http\Controllers\BackupController::class, 'download'])->name('backup.download');
+
     // Roles & Permissions
     Route::resource('roles', App\Http\Controllers\RoleController::class)->except(['create', 'edit', 'show']);
     Route::get('roles/{role}/permissions', [App\Http\Controllers\RoleController::class, 'permissions'])->name('roles.permissions');

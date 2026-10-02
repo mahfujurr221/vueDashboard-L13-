@@ -19,6 +19,7 @@ class RolePermissionSeeder extends Seeder
             // Settings
             'settings-view',
             'settings-update',
+            'backup-database',
             
             // Users
             'users-view',

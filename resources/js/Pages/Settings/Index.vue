@@ -95,25 +95,25 @@ const submit = () => {
                     <div class="flex flex-col lg:flex-row gap-8">
                         <!-- Navigation Sidebar -->
                         <div class="w-full lg:w-1/4">
-                            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 p-3 sticky top-24 transition-colors">
-                                <nav class="flex flex-col space-y-1">
-                                    <button @click="currentTab = 'general'" type="button" :class="[currentTab === 'general' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200']">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                            <div class="bg-white dark:bg-slate-900 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 p-2 lg:p-3 sticky top-20 z-10 transition-colors">
+                                <nav class="flex flex-row overflow-x-auto lg:flex-col gap-2 lg:gap-1.5 scrollbar-hide">
+                                    <button @click="currentTab = 'general'" type="button" :class="[currentTab === 'general' ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center whitespace-nowrap shrink-0 px-4 py-2.5 text-xs font-bold rounded-full transition-all duration-200 uppercase tracking-wide']">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                         General Info
                                     </button>
                                     
-                                    <button @click="currentTab = 'branding'" type="button" :class="[currentTab === 'branding' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200']">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+                                    <button @click="currentTab = 'branding'" type="button" :class="[currentTab === 'branding' ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center whitespace-nowrap shrink-0 px-4 py-2.5 text-xs font-bold rounded-full transition-all duration-200 uppercase tracking-wide']">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
                                         Branding & Logos
                                     </button>
                                     
-                                    <button @click="currentTab = 'pos'" type="button" :class="[currentTab === 'pos' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200']">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                    <button @click="currentTab = 'pos'" type="button" :class="[currentTab === 'pos' ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center whitespace-nowrap shrink-0 px-4 py-2.5 text-xs font-bold rounded-full transition-all duration-200 uppercase tracking-wide']">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                                         POS & Currency
                                     </button>
 
-                                    <button @click="currentTab = 'advanced'" type="button" :class="[currentTab === 'advanced' ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center px-4 py-3 text-sm font-semibold rounded-xl transition-all duration-200']">
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+                                    <button @click="currentTab = 'advanced'" type="button" :class="[currentTab === 'advanced' ? 'bg-gradient-to-r from-indigo-600 to-indigo-700 text-white shadow-md shadow-indigo-200 dark:shadow-none' : 'text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50', 'flex items-center whitespace-nowrap shrink-0 px-4 py-2.5 text-xs font-bold rounded-full transition-all duration-200 uppercase tracking-wide']">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
                                         Advanced Controls
                                     </button>
                                 </nav>
@@ -272,7 +272,14 @@ const submit = () => {
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- Submit Button Area -->
+                            <div class="sticky bottom-0 p-4 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-t border-slate-200 dark:border-slate-800 lg:static lg:p-0 lg:bg-transparent lg:border-none lg:mt-6 flex justify-end z-20 transition-colors">
+                                <PrimaryButton type="submit" :disabled="form.processing" class="w-full justify-center lg:w-auto">
+                                    <svg v-if="form.processing" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+                                    <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
+                                    Save Settings
+                                </PrimaryButton>
+                            </div>
                         </div>
                     </div>
                 </form>
