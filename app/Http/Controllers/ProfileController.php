@@ -31,13 +31,22 @@ class ProfileController extends Controller
     {
         $request->user()->fill($request->validated());
 
+        if ($request->hasFile('image')) {
+            if ($request->user()->image && \Illuminate\Support\Facades\Storage::disk('public')->exists($request->user()->image)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($request->user()->image);
+            }
+            
+            $path = $request->file('image')->store('uploads/users', 'public');
+            $request->user()->image = $path;
+        }
+
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('success', 'Profile updated successfully!');
     }
 
     /**

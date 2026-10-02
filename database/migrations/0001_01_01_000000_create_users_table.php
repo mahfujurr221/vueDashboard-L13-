@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
+            $table->string('phone')->nullable()->unique();
+            $table->string('image')->nullable();
+            $table->boolean('is_active')->default(true);
+            $table->decimal('basic_salary', 10, 2)->default(0);
+            $table->date('joining_date')->nullable();
+            $table->unsignedBigInteger('shift_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

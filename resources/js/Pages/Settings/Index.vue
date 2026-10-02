@@ -36,8 +36,8 @@ const form = useForm({
     dark_mode: props.setting.dark_mode == 1 ? true : false,
 });
 
-const logoPreview = ref(props.setting.logo ? '/uploads/' + props.setting.logo : null);
-const faviconPreview = ref(props.setting.favicon ? '/uploads/' + props.setting.favicon : null);
+const logoPreview = ref(props.setting.logo ? '/storage/' + props.setting.logo : null);
+const faviconPreview = ref(props.setting.favicon ? '/storage/' + props.setting.favicon : null);
 
 const handleLogoChange = (e) => {
     const file = e.target.files[0];

@@ -35,18 +35,7 @@ const updatePassword = () => {
 
 <template>
     <section>
-        <header>
-            <h2 class="text-lg font-medium text-gray-900">
-                Update Password
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
-                Ensure your account is using a long, random password to stay
-                secure.
-            </p>
-        </header>
-
-        <form @submit.prevent="updatePassword" class="mt-6 space-y-6">
+        <form @submit.prevent="updatePassword" class="space-y-4">
             <div>
                 <InputLabel for="current_password" value="Current Password" />
 
@@ -100,20 +89,21 @@ const updatePassword = () => {
                 />
             </div>
 
-            <div class="flex items-center gap-4">
-                <PrimaryButton :disabled="form.processing">Save</PrimaryButton>
+            <div class="flex items-center gap-3 pt-3 border-t border-slate-100 mt-2">
+                <PrimaryButton :disabled="form.processing" class="!py-1.5 !px-4 text-xs">Save Password</PrimaryButton>
 
                 <Transition
-                    enter-active-class="transition ease-in-out"
-                    enter-from-class="opacity-0"
-                    leave-active-class="transition ease-in-out"
-                    leave-to-class="opacity-0"
+                    enter-active-class="transition ease-in-out duration-300"
+                    enter-from-class="opacity-0 translate-y-1"
+                    leave-active-class="transition ease-in-out duration-300"
+                    leave-to-class="opacity-0 translate-y-1"
                 >
                     <p
                         v-if="form.recentlySuccessful"
-                        class="text-sm text-gray-600"
+                        class="text-sm font-medium text-green-600 flex items-center"
                     >
-                        Saved.
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                        Saved successfully.
                     </p>
                 </Transition>
             </div>

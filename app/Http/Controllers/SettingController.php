@@ -49,24 +49,18 @@ class SettingController extends Controller
 
         //favicon
         if ($request->hasFile('favicon')) {
-            if ($setting->favicon && file_exists(public_path('uploads/' . $setting->favicon))) {
-                @unlink(public_path('uploads/' . $setting->favicon));
+            if ($setting->favicon && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->favicon)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($setting->favicon);
             }
-            $image = $request->file('favicon');
-            $filename = 'favicon_' . time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/'), $filename);
-            $setting->favicon = $filename;
+            $setting->favicon = $request->file('favicon')->store('uploads/settings', 'public');
         }
 
         //logo
         if ($request->hasFile('logo')) {
-            if ($setting->logo && file_exists(public_path('uploads/' . $setting->logo))) {
-                @unlink(public_path('uploads/' . $setting->logo));
+            if ($setting->logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($setting->logo)) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($setting->logo);
             }
-            $image = $request->file('logo');
-            $filename = 'logo_' . time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('uploads/'), $filename);
-            $setting->logo = $filename;
+            $setting->logo = $request->file('logo')->store('uploads/settings', 'public');
         }
 
         $setting->save();

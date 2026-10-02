@@ -2,10 +2,12 @@
 import Sidebar from './Includes/Sidebar.vue';
 import Header from './Includes/Header.vue';
 import Footer from './Includes/Footer.vue';
+import Toast from '@/Components/Toast.vue';
 </script>
 
 <template>
     <div class="flex h-screen overflow-hidden bg-slate-50 font-sans text-slate-900">
+        <Toast />
         <!-- Sidebar -->
         <Sidebar />
 
