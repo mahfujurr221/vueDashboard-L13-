@@ -26,7 +26,9 @@ class RoleController extends Controller
         Gate::authorize('roles-create');
 
         $request->validate([
-            'name' => 'required|unique:roles,name'
+            'name' => 'required|string|min:2|max:50|regex:/^[a-zA-Z0-9\-\_ ]+$/|unique:roles,name'
+        ], [
+            'name.regex' => 'Role name can only contain letters, numbers, spaces, dashes, and underscores.'
         ]);
 
         Role::create(['name' => $request->name]);
@@ -39,7 +41,9 @@ class RoleController extends Controller
         Gate::authorize('roles-update');
 
         $request->validate([
-            'name' => 'required|unique:roles,name,' . $role->id
+            'name' => 'required|string|min:2|max:50|regex:/^[a-zA-Z0-9\-\_ ]+$/|unique:roles,name,' . $role->id
+        ], [
+            'name.regex' => 'Role name can only contain letters, numbers, spaces, dashes, and underscores.'
         ]);
 
         if ($role->name === 'super-admin') {
@@ -103,7 +107,8 @@ class RoleController extends Controller
         }
 
         $request->validate([
-            'permissions' => 'nullable|array'
+            'permissions' => 'nullable|array',
+            'permissions.*' => 'string|exists:permissions,name'
         ]);
 
         $role->syncPermissions($request->permissions ?? []);

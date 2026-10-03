@@ -32,11 +32,13 @@ class UserController extends Controller
         Gate::authorize('users-create');
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'name' => 'required|string|min:2|max:100',
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users',
+            'password' => 'required|string|min:8|max:100',
             'role' => 'required|exists:roles,name',
-            'phone' => 'nullable|string',
+            'phone' => 'nullable|string|regex:/^[0-9]{7,15}$/',
+        ], [
+            'phone.regex' => 'The phone number must contain only numbers and be between 7 to 15 digits long.',
         ]);
 
         $user = User::create([
@@ -57,10 +59,13 @@ class UserController extends Controller
         Gate::authorize('users-update');
 
         $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'name' => 'required|string|min:2|max:100',
+            'email' => 'required|string|email:rfc,dns|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|max:100',
             'role' => 'required|exists:roles,name',
-            'phone' => 'nullable|string',
+            'phone' => 'nullable|string|regex:/^[0-9]{7,15}$/',
+        ], [
+            'phone.regex' => 'The phone number must contain only numbers and be between 7 to 15 digits long.',
         ]);
 
         $user->update([

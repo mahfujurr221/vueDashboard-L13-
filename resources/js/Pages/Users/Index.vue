@@ -161,22 +161,22 @@ const deleteUser = (user) => {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Name</label>
-                    <TextInput v-model="form.name" type="text" class="w-full" required />
+                    <TextInput v-model="form.name" type="text" class="w-full" required maxlength="100" />
                     <InputError :message="form.errors.name" class="mt-1" />
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
-                    <TextInput v-model="form.email" type="email" class="w-full" required />
+                    <TextInput v-model="form.email" type="email" class="w-full" required maxlength="255" />
                     <InputError :message="form.errors.email" class="mt-1" />
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Password</label>
-                    <TextInput v-model="form.password" type="password" class="w-full" required />
+                    <TextInput v-model="form.password" type="password" class="w-full" required maxlength="100" />
                     <InputError :message="form.errors.password" class="mt-1" />
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Phone</label>
-                    <TextInput v-model="form.phone" type="text" class="w-full" />
+                    <TextInput v-model="form.phone" type="tel" class="w-full" @input="form.phone = form.phone.replace(/[^0-9]/g, '').slice(0, 15)" maxlength="15" />
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Assign Role</label>
@@ -201,22 +201,22 @@ const deleteUser = (user) => {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Name</label>
-                    <TextInput v-model="editForm.name" type="text" class="w-full" required />
+                    <TextInput v-model="editForm.name" type="text" class="w-full" required maxlength="100" />
                     <InputError :message="editForm.errors.name" class="mt-1" />
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
-                    <TextInput v-model="editForm.email" type="email" class="w-full" required />
+                    <TextInput v-model="editForm.email" type="email" class="w-full" required maxlength="255" />
                     <InputError :message="editForm.errors.email" class="mt-1" />
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Password (Leave blank to keep)</label>
-                    <TextInput v-model="editForm.password" type="password" class="w-full" />
+                    <TextInput v-model="editForm.password" type="password" class="w-full" maxlength="100" />
                     <InputError :message="editForm.errors.password" class="mt-1" />
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Phone</label>
-                    <TextInput v-model="editForm.phone" type="text" class="w-full" />
+                    <TextInput v-model="editForm.phone" type="tel" class="w-full" @input="editForm.phone = editForm.phone.replace(/[^0-9]/g, '').slice(0, 15)" maxlength="15" />
                 </div>
                 <div class="md:col-span-2">
                     <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Assign Role</label>

@@ -33,10 +33,24 @@ class SettingController extends Controller
         $setting = Setting::first();
 
         $request->validate([
-            'site_name' => 'required|string|max:255',
-            'currency_name' => 'required|string|max:255',
-            'currency_symbol' => 'required|string|max:255',
-            'currency_code' => 'required|string|max:255',
+            'site_name' => 'required|string|min:2|max:100',
+            'site_title' => 'nullable|string|min:2|max:150',
+            'phone' => 'nullable|string|regex:/^[0-9]{7,15}$/',
+            'email' => 'nullable|email:rfc,dns|max:255',
+            'address' => 'nullable|string|max:500',
+            'currency_name' => 'required|string|min:2|max:50',
+            'currency_symbol' => 'required|string|max:10',
+            'currency_code' => 'required|string|size:3|alpha',
+            'currency_position' => 'required|string|in:prefix,suffix',
+            'invoice_view_type' => 'required|string|in:both,logo_only,text_only',
+            'pos_receipt_type' => 'required|string|in:pos,a4,a5',
+            'purchase_receipt_type' => 'required|string|in:pos,a5',
+            'payment_receipt_type' => 'required|string|in:pos,a4',
+            'low_stock_limit' => 'required|integer|min:0|max:100000',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,webp,svg|max:2048|dimensions:max_width=2000,max_height=2000',
+            'favicon' => 'nullable|image|mimes:jpeg,png,jpg,ico,webp|max:1024|dimensions:max_width=512,max_height=512',
+        ], [
+            'phone.regex' => 'The phone number must contain only numbers and be between 7 to 15 digits long.',
         ]);
 
         $setting->site_name = $request->site_name;

@@ -129,26 +129,30 @@ const submit = () => {
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Business Name</label>
-                                        <TextInput type="text" v-model="form.site_name" required />
+                                        <TextInput type="text" v-model="form.site_name" required maxlength="100" />
                                         <InputError :message="form.errors.site_name" class="mt-2" />
                                         <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Displayed on receipts and browser title</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Site Slogan / Title</label>
-                                        <TextInput type="text" v-model="form.site_title" />
+                                        <TextInput type="text" v-model="form.site_title" maxlength="150" />
+                                        <InputError :message="form.errors.site_title" class="mt-2" />
                                         <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Catchy phrase for your business</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Contact Phone</label>
-                                        <TextInput type="text" v-model="form.phone" />
+                                        <TextInput type="tel" v-model="form.phone" @input="form.phone = form.phone.replace(/[^0-9]/g, '').slice(0, 15)" maxlength="15" />
+                                        <InputError :message="form.errors.phone" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Email Address</label>
-                                        <TextInput type="email" v-model="form.email" />
+                                        <TextInput type="email" v-model="form.email" maxlength="255" />
+                                        <InputError :message="form.errors.email" class="mt-2" />
                                     </div>
                                     <div class="md:col-span-2">
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Full Address</label>
-                                        <textarea v-model="form.address" rows="3" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all"></textarea>
+                                        <textarea v-model="form.address" rows="3" maxlength="500" class="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-slate-100 focus:bg-white dark:focus:bg-slate-900 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all"></textarea>
+                                        <InputError :message="form.errors.address" class="mt-2" />
                                     </div>
                                 </div>
                             </div>
@@ -187,17 +191,17 @@ const submit = () => {
                                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Currency Symbol</label>
-                                        <TextInput type="text" v-model="form.currency_symbol" />
+                                        <TextInput type="text" v-model="form.currency_symbol" required maxlength="10" />
                                         <InputError :message="form.errors.currency_symbol" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Currency Name</label>
-                                        <TextInput type="text" v-model="form.currency_name" />
+                                        <TextInput type="text" v-model="form.currency_name" required maxlength="50" />
                                         <InputError :message="form.errors.currency_name" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">ISO Code</label>
-                                        <TextInput type="text" v-model="form.currency_code" required placeholder="e.g. BDT" />
+                                        <TextInput type="text" v-model="form.currency_code" required maxlength="3" @input="form.currency_code = form.currency_code.replace(/[^a-zA-Z]/g, '').toUpperCase().slice(0, 3)" placeholder="e.g. BDT" />
                                         <InputError :message="form.errors.currency_code" class="mt-2" />
                                     </div>
                                     <div>
@@ -206,6 +210,7 @@ const submit = () => {
                                             <option value="prefix">Prefix ($ 100)</option>
                                             <option value="suffix">Suffix (100 $)</option>
                                         </SelectInput>
+                                        <InputError :message="form.errors.currency_position" class="mt-2" />
                                     </div>
                                 </div>
                                 
@@ -216,6 +221,7 @@ const submit = () => {
                                         <option value="logo_only">Logo Only</option>
                                         <option value="text_only">Text Only</option>
                                     </SelectInput>
+                                    <InputError :message="form.errors.invoice_view_type" class="mt-2" />
                                 </div>
 
                                 <h5 class="text-base font-bold text-slate-800 dark:text-slate-100 border-t border-slate-100 dark:border-slate-800 pt-5 mb-4">Receipt Templates</h5>
@@ -227,6 +233,7 @@ const submit = () => {
                                             <option value="a4">Standard (A4)</option>
                                             <option value="a5">Standard (A5)</option>
                                         </SelectInput>
+                                        <InputError :message="form.errors.pos_receipt_type" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Purchase Orders</label>
@@ -234,6 +241,7 @@ const submit = () => {
                                             <option value="pos">Thermal (80mm)</option>
                                             <option value="a5">A5 Format</option>
                                         </SelectInput>
+                                        <InputError :message="form.errors.purchase_receipt_type" class="mt-2" />
                                     </div>
                                     <div>
                                         <label class="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2">Payment Vouchers</label>
@@ -241,6 +249,7 @@ const submit = () => {
                                             <option value="pos">Thermal (80mm)</option>
                                             <option value="a4">Standard (A4)</option>
                                         </SelectInput>
+                                        <InputError :message="form.errors.payment_receipt_type" class="mt-2" />
                                     </div>
                                 </div>
                             </div>
@@ -255,8 +264,9 @@ const submit = () => {
                                             <span class="inline-flex items-center px-4 bg-white dark:bg-slate-900 border border-r-0 border-slate-200 dark:border-slate-700 rounded-l-xl text-yellow-500">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                                             </span>
-                                            <input type="number" v-model="form.low_stock_limit" class="w-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-r-xl px-4 py-2 text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
+                                            <input type="number" v-model="form.low_stock_limit" min="0" max="100000" @input="form.low_stock_limit = Math.abs(parseInt(form.low_stock_limit)) || 0" class="w-full bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-700 rounded-r-xl px-4 py-2 text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all">
                                         </div>
+                                        <InputError :message="form.errors.low_stock_limit" class="mt-2" />
                                         <p class="mt-3 text-xs text-slate-500 dark:text-slate-400">Notify me when stock falls below this quantity</p>
                                     </div>
                                     

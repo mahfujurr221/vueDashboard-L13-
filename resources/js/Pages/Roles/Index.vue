@@ -137,7 +137,7 @@ const deleteRole = (role) => {
         <Modal :show="showAddModal" @close="showAddModal = false" maxWidth="md" title="Add New Role">
             <div class="mb-5">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Role Name</label>
-                <TextInput v-model="form.name" type="text" class="w-full" placeholder="e.g. Manager" required />
+                <TextInput v-model="form.name" type="text" class="w-full" placeholder="e.g. Manager" required maxlength="50" @input="form.name = form.name.replace(/[^a-zA-Z0-9\-\_ ]/g, '')" />
                 <InputError :message="form.errors.name" class="mt-2" />
             </div>
             
@@ -153,7 +153,7 @@ const deleteRole = (role) => {
         <Modal :show="showEditModal" @close="showEditModal = false" maxWidth="md" title="Update Role">
             <div class="mb-5">
                 <label class="block text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Role Name</label>
-                <TextInput v-model="editForm.name" type="text" class="w-full" required />
+                <TextInput v-model="editForm.name" type="text" class="w-full" required maxlength="50" @input="editForm.name = editForm.name.replace(/[^a-zA-Z0-9\-\_ ]/g, '')" />
                 <InputError :message="editForm.errors.name" class="mt-2" />
             </div>
             
